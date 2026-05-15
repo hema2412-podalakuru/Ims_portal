@@ -1,0 +1,26 @@
+# GitHub Actions workflow for C++ project on Windows
+# Install CMake
+# Configure build
+# Build project
+# Run executable
+name: C++ CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install CMake
+      run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+    - name: Configure CMake
+      run: cmake -S . -B build
+    - name: Build project
+      run: cmake --build build --config Release
+    - name: Run executable
+      run: build\Release\MyProject.exe
+
+      
